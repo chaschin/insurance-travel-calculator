@@ -39,13 +39,17 @@ class Calculator {
 		$post_data = $_POST;
 		$data = array(
 			'companies'    => Company::get_instance()->get_companies( $post_data ),
+			'translations' => array(
+				'For purchase online'                   => __( 'For purchase online', 'insurance-travel-calculator' ),
+				'For purchase through a representative' => __( 'For purchase through a representative', 'insurance-travel-calculator' ),
+			),
 		);
 		if ( isset( $post_data['option'] ) ) {
 			$options = Company::get_instance()->get_options( $post_data['option'] );
 			$post_data['option'] = $options;
 		}
 		if ( isset( $post_data['direction'] ) ) {
-			$options = Company::get_instance()->get_options( $post_data['direction'] );
+			$options = Company::get_instance()->get_destinations( $post_data['direction'] );
 			$post_data['direction'] = $options;
 		}
 		$post_data['translations'] = array(
@@ -58,6 +62,7 @@ class Calculator {
 		$result = array(
 			'results'   => Template::get_instance()->render( 'info/results', $post_data ),
 			'companies' => Template::get_instance()->render( 'info/companies', $data ),
+			'direction' => $post_data['direction'],
 		);
 		echo json_encode( $result );
 		wp_die();

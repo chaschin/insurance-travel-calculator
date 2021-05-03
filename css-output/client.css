@@ -344,7 +344,7 @@
   background-size: 40%;
 }
 .it-calculator__passenger-input, .it-calculator__travel-date-input {
-  height: 38px;
+  height: 38px !important;
   border: 1px #9d9d9d solid;
   text-align: right;
   line-height: 38px;
@@ -487,6 +487,7 @@
   font-size: 18px;
   margin: 0;
   padding: 0 0 15px 0;
+  color: #ffffff;
 }
 .it-calculator__results-list-item {
   padding-right: 23px;
