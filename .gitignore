@@ -1,0 +1,11 @@
+# Sass cache files
+.sass-cache
+
+# Twig cache files
+cache/*
+
+# PHP Storm Project dir
+.idea
+
+composer.lock
+package-lock.json

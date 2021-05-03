@@ -1,0 +1,10 @@
+{% for company in companies %}
+	<div class="it-calculator__company">
+		<div class="it-calculator__company-logo-and-price">
+			<img src="{{ company.logo }}" class="it-calculator__company-logo" alt="">
+			<span class="it-calculator__company-price">{{ company.total_fee }}$</span>
+		</div>
+		<a href="{{ company.link_1|default('#') }}" class="it-calculator__company-direct-link">{{ translations['For purchase online'] }}</a>
+		<a href="{{ company.link_2|default('#') }}" class="it-calculator__company-representative-link">{{ translations['For purchase through a representative'] }}</a>
+	</div>
+{% endfor %}

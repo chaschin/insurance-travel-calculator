@@ -1,0 +1,473 @@
+@import 'global/mixins';
+@import 'color-settings';
+
+* {
+	box-sizing: border-box;
+}
+
+.it-calculator {
+	// Dev settings
+	font-family: 'Assistant', sans-serif;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	// -----------------------
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	font-size: 15px;
+	background-image: url('../img/page-bg-1.jpg');
+	background-attachment: fixed;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 30px 0 45px 0;
+	direction: rtl;
+	text-align: right;
+	* {
+		box-sizing: border-box;
+	}
+	&__container {
+		width: 100%;
+		max-width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		@media only screen and (min-width: 576px) {
+			max-width: 570px;
+		}
+		@media only screen and (min-width: 768px) {
+			max-width: 720px;
+		}
+		@media only screen and (min-width: 992px) {
+			max-width: 960px;
+		}
+		@media only screen and (min-width: 1200px) {
+			max-width: 1365px;
+		}
+	}
+	&__icon {
+		&--chevron-down {
+			background-image: url('../img/chevron-down-light.svg');
+			width: 22px;
+			height: 25px;
+		}
+		&--chevron-down-black {
+			background-image: url('../img/chevron-down-light.svg');
+			width: 22px;
+			height: 25px;
+			@media only screen and (min-width: 768px) {
+				background-image: url('../img/chevron-down-light-black.svg');
+			}
+		}
+		&--tik {
+			background-image: url('../img/tik.png');
+			width: 30px;
+			height: 27px;
+			background-size: 100%;
+		}
+	}
+	&__title {
+		margin: 0;
+		padding: 45px 0;
+		text-align: center;
+		color: #fff;
+		font-size: 34px;
+		line-height: 1.2;
+	}
+	&__content {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		@media only screen and (min-width: 1200px) {
+			flex-wrap: nowrap;
+		}
+	}
+	&__content-form {
+		width: 100%;
+		padding: 15px;
+		@media only screen and (min-width: 1200px) {
+			width: calc(100% / 12 * 7);
+		}
+		form {
+			width: 100%;
+			padding: 0;
+			margin: 0;
+		}
+	}
+	&__content-info {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		@media only screen and (min-width: 1200px) {
+			width: calc(100% / 12 * 7);
+		}
+	}
+	&__content-title {
+		color: #fff;
+		font-size: 22px;
+		margin-bottom: 20px;
+		text-align: center;
+		@media only screen and (min-width: 768px) {
+			text-align: right;
+		}
+	}
+	&__content-raw {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		@media only screen and (min-width: 768px) {
+			flex-wrap: nowrap;
+			&--top {
+				.it-calculator__content-raw-title {
+					border-top-right-radius: 10px;
+				}
+				.it-calculator__content-raw-data {
+					border-top-left-radius: 10px;
+				}
+			}
+			&--bottom {
+				.it-calculator__content-raw-title {
+					border-bottom-right-radius: 10px;
+				}
+				.it-calculator__content-raw-data {
+					border-bottom-left-radius: 10px;
+				}
+			}
+			&:nth-child(2n+1) {
+				.it-calculator__content-raw-title {
+					background: #88b7d2;
+					&--number {
+						color: #000000;
+					}
+					p {
+						color: #000000;
+					}
+				}
+				.it-calculator__content-raw-data {
+					background: #fefefed4;
+				}
+			}
+		}
+	}
+	&__content-raw-title {
+		position: relative;
+		background: #245164;
+		padding: 15px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		flex-direction: column;
+		width: 100%;
+		line-height: 1.2;
+		@media only screen and (min-width: 768px) {
+			width: 225px;
+		}
+		&--number {
+			position: absolute;
+			right: 0;
+			height: 100%;
+			background: #89B8D2;
+			width: 25%;
+			border-radius: 70% 0 0 70%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			top: 0;
+			bottom: 0;
+			font-size: 34px;
+			color: #fff;
+			@media only screen and (min-width: 768px) {
+				display: block;
+				position: static;
+				background: transparent;
+				display: block;
+				font-weight: 700;
+				line-height: 1;
+				margin-bottom: 2px;
+				border-radius: 0;
+				height: auto;
+			}
+		}
+		p {
+			color: #fff;
+			font-weight: 700;
+			font-size: 20px;
+			line-height: 1.2;
+			margin: 0;
+			padding: 5px 0;
+			br {
+				@media only screen and (max-width: 767px) {
+					display: none;
+				}
+			}
+		}
+	}
+	&__content-raw-data {
+		background: rgba(255, 255, 255, 0.949);
+		padding: 30px;
+		padding-bottom: 20px;
+		width: 100%;
+		@media only screen and (min-width: 768px) {
+			width: calc(100% - 225px);
+		}
+	}
+	&__passenger {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		padding-bottom: 15px;
+		flex-wrap: wrap;
+		&:last-child {
+			.it-calculator__passenger-delete {
+				display: none;
+			}
+			.it-calculator__passenger-add {
+				display: block;
+			}
+		}
+		label {
+			width: 100%;
+			padding-right: 43px;
+			padding-bottom: 5px;
+			@media only screen and (min-width: 768px) {
+				width: 70px;
+				padding-bottom: 0;
+				padding-right: 0;
+			}
+		}
+	}
+	&__passenger-button {
+		width: 38px;
+		height: 38px;
+		border: 0;
+		border-radius: 5px;
+		padding: 0;
+		cursor: pointer;
+	}
+	&__passenger-empty-button {
+		display: inline-block;
+		width: 38px;
+		height: 38px;
+	}
+	&__passenger-add {
+		display: none;
+		background: #7ac943 url('../img/plus-light.svg') center center no-repeat;
+		background-size: 50%;
+	}
+	&__passenger-delete {
+		background: #ff1c24 url('../img/times-light.svg') center center no-repeat;
+		background-size: 40%;
+	}
+	&__passenger-input,
+	&__travel-date-input {
+		height: 38px;
+		border: 1px #9d9d9d solid;
+		text-align: right;
+		line-height: 38px;
+		font-size: 15px;
+		color: #4d4d4d;
+		max-width: 190px;
+		padding: 0 12px;
+		background-color: #ffffff;
+		border-radius: 5px;
+		margin-right: 5px;
+	}
+	&__options-list {
+		padding-right: 43px;
+		@media only screen and (min-width: 768px) {
+			padding-right: 113px;
+		}
+	}
+	&__options-list-item {
+		position: relative;
+		padding-bottom: 15px;
+	}
+	&__options-checkbox {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		align-items: center;
+		input[type="checkbox"] {
+			display: none;
+		}
+		&.checked {
+			.it-calculator__options-checkbox-checkmark {
+				background-color: #7ac943;
+				border-color: #7ac943;
+				&::after {
+					position: absolute;
+					display: block;
+					content: '';
+					left: 10px;
+					top: 2px;
+					width: 8px;
+					height: 16px;
+					border: solid #ffffff 2px;
+					border-width: 0px 2px 2px 0;
+					transform: rotate(45deg);
+				}
+			}
+		}
+	}
+	&__options-checkbox-label {
+		font-size: 18px;
+		padding-right: 30px;
+	}
+	&__options-checkbox-checkmark {
+		position: relative;
+		display: inline-block;
+		height: 30px;
+		width: 30px;
+		border: solid #808080 1px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+	&__bottom-title {
+		color: #fff;
+		font-size: 22px;
+		text-align: center;
+		width: 100%;
+		@media only screen and (min-width: 768px) {
+			text-align: right;
+			padding-right: 15px;
+		}
+	}
+	&__tooltip {
+		position: absolute;
+		left: 0;
+		top: 6px;
+		display: inline-block;
+		background: transparent url('../img/question-circle-light.svg') center center no-repeat;
+		width: 18px;
+		height: 18px;
+		background-size: 100%;
+		cursor: pointer;
+	}
+	&__results {
+		display: none;
+		width: 50%;
+		padding: 15px;
+		color: #ffffff;
+		@media only screen and (min-width: 768px) {
+			display: block;
+		}
+	}
+	&__results-inner {
+		background: #131c24b3;
+		border-radius: 10px;
+		padding: 30px;
+	}
+	&__companies {
+		width: 100%;
+		padding: 15px;
+		@media only screen and (min-width: 586px) {
+			width: 80%;
+		}
+		@media only screen and (min-width: 768px) {
+			width: 50%;
+		}
+	}
+	&__companies-inner {
+		background: #131c24;
+		border-radius: 10px;
+		padding: 15px;
+	}
+	&__results-list {
+		border-bottom: solid #ffffff 1px;
+		padding-top: 30px;
+		&:first-child {
+			padding-top: 0;
+		}
+		&:last-child {
+			border-bottom: 0;
+		}
+	}
+	&__results-heder {
+		font-size: 18px;
+		margin: 0;
+		padding: 0 0 15px 0;
+	}
+	&__results-list-item {
+		padding-right: 23px;
+		padding-bottom: 20px;
+	}
+	&__results-passenger {
+		background: transparent url('../img/ic-1.svg') right top no-repeat;
+		background-size: 16px;
+	&__results-passenger-number {}
+	&__results-passenger-date {}
+	}
+	&__results-destination {
+		background: transparent url('../img/ic-2.svg') right top no-repeat;
+		background-size: 16px;
+	}
+	&__results-arival-date {
+		background: transparent url('../img/ic-3.svg') right 3px no-repeat;
+		background-size: 18px;
+	}
+	&__results-return-date {
+		background: transparent url('../img/ic-4.svg') right 3px no-repeat;
+		background-size: 18px;
+	}
+	&__results-option {
+		background: transparent url('../img/ic-5.svg') right 2px no-repeat;
+		background-size: 16px;
+	}
+	&__company {
+		background: #fff;
+		border-radius: 10px;
+		padding: 10px;
+		margin-top: 15px;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+	&__company-logo-and-price {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		align-items: center;
+		justify-content: space-between;
+	}
+	&__company-price {
+		font-size: 16px;
+		width: 40%;
+		text-align: center;
+	}
+	&__company-logo {
+		max-width: 50%;
+		height: 40px;
+	}
+	&__company-direct-link {
+		display: block;
+		background: linear-gradient(to right, #87b6d1, #16628a);
+		text-align: center;
+		margin-top: 10px;
+		padding: 7px;
+		color: #fff;
+		border-radius: 5px;
+		font-weight: 700;
+		text-decoration: none;
+	}
+	&__company-representative-link {
+		display: block;
+		text-align: center;
+		margin-top: 10px;
+		padding: 7px;
+		background: linear-gradient(to right, #f89120, #f25B24);
+		color: #fff;
+		border-radius: 5px;
+		font-weight: 700;
+		text-decoration: none;
+	}
+}

@@ -1,0 +1,44 @@
+<div class="it-calculator__results-list">
+	<h4 class="it-calculator__results-heder">{{ translations['1 step result title'] }}</h4>
+	{% for key, passenger_date in passenger %}
+		<div class="it-calculator__results-list-item it-calculator__results-passenger">
+			{% set pk = key + 1 %}
+			{{ translations['Passenger'] }} <span class="it-calculator__results-passenger-number">{{ pk }}</span>: <span class="it-calculator__results-passenger-date">{{ passenger_date }}</span>
+		</div>
+	{% endfor %}
+</div>
+{% if direction %}
+	<div class="it-calculator__results-list">
+		<h4 class="it-calculator__results-heder">{{ translations['2 step result title'] }}</h4>
+		{% for dir in direction %}
+			<div class="it-calculator__results-list-item it-calculator__results-destination">
+				{{ dir }}
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}
+{% if travel_date.arrival or travel_date.return %}
+	<div class="it-calculator__results-list">
+		<h4 class="it-calculator__results-heder">{{ translations['2 step result title'] }}</h4>
+		{% if travel_date.arrival %}
+			<div class="it-calculator__results-list-item it-calculator__results-arival-date">
+				{{ travel_date.arrival }}
+			</div>
+		{% endif %}
+		{% if travel_date.return %}
+			<div class="it-calculator__results-list-item it-calculator__results-return-date">
+				{{ travel_date.return }}
+			</div>
+		{% endif %}
+	</div>
+{% endif %}
+{% if option %}
+	<div class="it-calculator__results-list">
+		<h4 class="it-calculator__results-heder">{{ translations['2 step result title'] }}</h4>
+		{% for opt in option %}
+			<div class="it-calculator__results-list-item it-calculator__results-option">
+				{{ opt.name }}
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}

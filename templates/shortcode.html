@@ -1,0 +1,113 @@
+<div id="it-calculator" class="it-calculator alignfull">
+	<div class="it-calculator__container">
+		<h2 class="it-calculator__title">{{ atts.title|default( translations['Shortcode Title'] ) }}</h2>
+		<div class="it-calculator__content">
+			<div class="it-calculator__content-form">
+				<form name="it-calculator" method="POST" action="/">
+					<h3 class="it-calculator__content-title">{{ translations['Title for a column with form'] }}</h3>
+					<div class="it-calculator__content-raw it-calculator__content-raw--top">
+						<div class="it-calculator__content-raw-title">
+							<span class="it-calculator__content-raw-title--number">1</span>
+							<p>{{ translations['1 step title']|raw }}</p>
+							<span class="it-calculator__icon--chevron-down"></span>
+						</div>
+						<div class="it-calculator__passengers it-calculator__content-raw-data">
+							<div class="it-calculator__passengers-list">
+								<div class="it-calculator__passenger">
+									<label>{{ translations['Passenger'] }} <span class="it-calculator__passenger-number">1</span></label>
+									<span class="it-calculator__passenger-empty-button"></span>
+									<input type="text" name="passenger[]" class="it-calculator__passenger-input datepicker" value="" placeholder="{{ translations['Date of birth'] }}">
+								</div>
+								<div class="it-calculator__passenger">
+									<label>{{ translations['Passenger'] }} <span class="it-calculator__passenger-number">1</span></label>
+									<button class="it-calculator__passenger-button it-calculator__passenger-add"></button>
+									<button class="it-calculator__passenger-button it-calculator__passenger-delete"></button>
+									<input type="text" name="passenger[]" class="it-calculator__passenger-input datepicker" value="" placeholder="{{ translations['Date of birth'] }}">
+								</div>
+							</div>
+							<p class="note">{{ translations['1 step notice'] }}</p>
+						</div>
+					</div>
+					<div class="it-calculator__content-raw it-calculator__content-raw-light">
+						<div class="it-calculator__content-raw-title">
+							<span class="it-calculator__content-raw-title--number">2</span>
+							<p>{{ translations['2 step title']|raw }}</p>
+							<span class="it-calculator__icon--chevron-down-black"></span>
+						</div>
+						<div class="it-calculator__content-raw-data">
+							<div class="it-calculator__options-list">
+								{% for destination in destinations %}
+								<div class="it-calculator__options-list-item">
+									<label class="it-calculator__options-checkbox">
+										<span class="it-calculator__options-checkbox-checkmark"></span>
+										<span class="it-calculator__options-checkbox-label">{{ destination.name }}</span>
+										<input name="direction[]" type="checkbox" value="{{ destination.term_id }}">
+									</label>
+								</div>
+								{% endfor %}
+							</div>
+							<p class="note">{{ translations['2 step notice'] }}</p>
+						</div>
+					</div>
+					<div class="it-calculator__content-raw it-calculator__content-raw-light">
+						<div class="it-calculator__content-raw-title">
+							<span class="it-calculator__content-raw-title--number">3</span>
+							<p>{{ translations['3 step title']|raw }}</p>
+							<span class="it-calculator__icon--chevron-down"></span>
+						</div>
+						<div class="it-calculator__content-raw-data">
+							<div class="it-calculator__options-list">
+								<div class="it-calculator__options-list-item">
+									<input type="text" name="travel_date[arrival]" class="it-calculator__travel-date-input datepicker" value="" placeholder="{{ translations['Arrival date'] }}">
+								</div>
+								<div class="it-calculator__options-list-item">
+									<input type="text" name="travel_date[return]" class="it-calculator__travel-date-input datepicker" value="" placeholder="{{ translations['Return date'] }}">
+								</div>
+							</div>
+							<p class="note">{{ translations['3 step notice']|raw }}</p>
+						</div>
+					</div>
+					<div class="it-calculator__content-raw it-calculator__content-raw-light it-calculator__content-raw--bottom">
+						<div class="it-calculator__content-raw-title">
+							<span class="it-calculator__content-raw-title--number">4</span>
+							<p>{{ translations['4 step title']|raw }}</p>
+							<span class="it-calculator__icon--tik"></span>
+						</div>
+						<div class="it-calculator__content-raw-data">
+							{% for option in options %}
+								<div class="it-calculator__options-list">
+									<div class="it-calculator__options-list-item">
+										<label class="it-calculator__options-checkbox">
+											<span class="it-calculator__options-checkbox-checkmark"></span>
+											<span class="it-calculator__options-checkbox-label">{{ option.name }}</span>
+											<input name="option[]" type="checkbox" value="{{ option.term_id }}">
+										</label>
+										{% if option.description %}
+											<span class="it-calculator__tooltip" title="{{ option.description }}"></span>
+										{% endif %}
+									</div>
+								</div>
+							{% endfor %}
+							<p class="note">{{ translations['4 step notice']|raw }}</p>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="it-calculator__content-info">
+				<div class="it-calculator__results">
+					<h3 class="it-calculator__content-title">{{ translations['Results column title'] }}</h3>
+					<div class="it-calculator__results-inner">
+						{% include 'info/results.html' %}
+					</div>
+				</div>
+				<div class="it-calculator__companies">
+					<h3 class="it-calculator__content-title">{{ translations['Companies column title'] }}</h3>
+					<div class="it-calculator__companies-inner">
+						{% include 'info/companies.html' %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<h3 class="it-calculator__bottom-title">{{ translations['Bottom legal note']|raw }}</h3>
+	</div>
+</div>
