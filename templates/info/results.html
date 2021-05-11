@@ -19,7 +19,7 @@
 {% endif %}
 {% if travel_date.arrival or travel_date.return %}
 	<div class="it-calculator__results-list">
-		<h4 class="it-calculator__results-heder">{{ translations['2 step result title'] }}</h4>
+		<h4 class="it-calculator__results-heder">{{ translations['3 step result title'] }}</h4>
 		{% if travel_date.arrival %}
 			<div class="it-calculator__results-list-item it-calculator__results-arival-date">
 				{{ travel_date.arrival }}
@@ -34,7 +34,7 @@
 {% endif %}
 {% if option %}
 	<div class="it-calculator__results-list">
-		<h4 class="it-calculator__results-heder">{{ translations['2 step result title'] }}</h4>
+		<h4 class="it-calculator__results-heder">{{ translations['4 step result title'] }}</h4>
 		{% for opt in option %}
 			<div class="it-calculator__results-list-item it-calculator__results-option">
 				{{ opt.name }}

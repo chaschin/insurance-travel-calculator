@@ -44,7 +44,7 @@ class Shortcode {
 		);
 
 		$data['image_url']    = PLUGIN_CALCULATOR_URL . 'img/';
-		$data['destinations'] = Company::get_instance()->get_destinations();
+		$data['destinations'] = Company::get_instance()->get_countries();
 		$data['options']      = Company::get_instance()->get_options();
 		$data['companies']    = Company::get_instance()->get_companies();
 		$data['passenger']    = array( '', '' );
@@ -62,7 +62,7 @@ class Shortcode {
 			'Companies column title'                => __( 'Companies column title', 'insurance-travel-calculator' ),
 			'Results column title'                  => __( 'Results column title', 'insurance-travel-calculator' ),
 			'Date of birth'                         => __( 'Date of birth', 'insurance-travel-calculator' ),
-			'Bottom legal note'                     => __( 'Bottom legal note', 'insurance-travel-calculator' ),
+			'Bottom legal note'                     => get_field( 'legal_note_text', 'options' ),
 			'Arrival date'                          => __( 'Arrival date', 'insurance-travel-calculator' ),
 			'Return date'                           => __( 'Return date', 'insurance-travel-calculator' ),
 			'For purchase online'                   => __( 'For purchase online', 'insurance-travel-calculator' ),

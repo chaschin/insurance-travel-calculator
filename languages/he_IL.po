@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-05-03 07:28+0300\n"
-"PO-Revision-Date: 2021-05-03 07:30+0300\n"
+"POT-Creation-Date: 2021-05-12 01:48+0300\n"
+"PO-Revision-Date: 2021-05-12 01:48+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he_IL\n"
@@ -52,48 +52,48 @@ msgid "No companies found in Trash."
 msgstr ""
 
 #: ../src/calculator/class-company.php:73
-msgid "Search Destinations"
+msgid "Search Countries"
 msgstr ""
 
 #: ../src/calculator/class-company.php:74
-msgid "Popular Destinations"
+msgid "Popular Countries"
 msgstr ""
 
 #: ../src/calculator/class-company.php:75
-msgid "All Destinations"
+msgid "All Countries"
 msgstr ""
 
 #: ../src/calculator/class-company.php:78
-msgid "Edit Destination"
+msgid "Edit Country"
 msgstr ""
 
 #: ../src/calculator/class-company.php:79
-msgid "Update Destination"
+msgid "Update Country"
 msgstr ""
 
 #: ../src/calculator/class-company.php:80
-msgid "Add New Destination"
+msgid "Add New Country"
 msgstr ""
 
 #: ../src/calculator/class-company.php:81
-msgid "New Destination Name"
+msgid "New Country Name"
 msgstr ""
 
 #: ../src/calculator/class-company.php:82
-msgid "Separate destinations with commas"
+msgid "Separate countries with commas"
 msgstr ""
 
 #: ../src/calculator/class-company.php:83
-msgid "Add or remove destinations"
+msgid "Add or remove countries"
 msgstr ""
 
 #: ../src/calculator/class-company.php:84
-msgid "Choose from the most used destinations"
+msgid "Choose from the most used countries"
 msgstr ""
 
 #: ../src/calculator/class-company.php:85
-#: ../src/calculator/class-company.php:403
-msgid "Destinations"
+#: ../src/calculator/class-company.php:356
+msgid "Countries"
 msgstr ""
 
 #: ../src/calculator/class-company.php:101
@@ -137,69 +137,48 @@ msgid "Choose from the most used options"
 msgstr ""
 
 #: ../src/calculator/class-company.php:113
-#: ../src/calculator/class-company.php:465
+#: ../src/calculator/class-company.php:420
 msgid "Options"
 msgstr ""
 
-#: ../src/calculator/class-company.php:299
+#: ../src/calculator/class-company.php:307
 msgid "Company Settings"
 msgstr ""
 
-#: ../src/calculator/class-company.php:303
+#: ../src/calculator/class-company.php:311
 msgid "Company Logo"
 msgstr ""
 
-#: ../src/calculator/class-company.php:327
-msgid "Adult Fee"
+#: ../src/calculator/class-company.php:335
+msgid "Basic Price"
 msgstr ""
 
-#: ../src/calculator/class-company.php:346
-msgid "Infant Fee"
+#: ../src/calculator/class-company.php:371
+msgid "Add Country's Fee"
 msgstr ""
 
-#: ../src/calculator/class-company.php:349
-msgid "Up to three years old"
+#: ../src/calculator/class-company.php:375
+msgid "Country"
 msgstr ""
 
-#: ../src/calculator/class-company.php:365
-#: ../src/calculator/class-company.php:384
-msgid "Child Fee"
-msgstr ""
-
-#: ../src/calculator/class-company.php:368
-msgid "Three to seven years old"
-msgstr ""
-
-#: ../src/calculator/class-company.php:387
-msgid "Seven to fourteen years old"
-msgstr ""
-
-#: ../src/calculator/class-company.php:418
-msgid "Add Destination Fee"
-msgstr ""
-
-#: ../src/calculator/class-company.php:422
-msgid "Destination"
-msgstr ""
-
-#: ../src/calculator/class-company.php:444
-#: ../src/calculator/class-company.php:506
+#: ../src/calculator/class-company.php:397
+#: ../src/calculator/class-company.php:461
 msgid "Fee"
 msgstr ""
 
-#: ../src/calculator/class-company.php:480
+#: ../src/calculator/class-company.php:435
 msgid "Add Option Fee"
 msgstr ""
 
-#: ../src/calculator/class-company.php:484
+#: ../src/calculator/class-company.php:439
 msgid "Option"
 msgstr ""
 
-#: ../src/calculator/class-company.php:527
+#: ../src/calculator/class-company.php:484
 msgid "Link for purchase online"
 msgstr ""
 
-#: ../src/calculator/class-company.php:546
+#: ../src/calculator/class-company.php:503
 msgid "Link for purchase through a representative"
 msgstr ""
 
@@ -207,7 +186,7 @@ msgstr ""
 msgid "Shortcode Title"
 msgstr "הצעות בזמן אמת הצעות בזמן אמת"
 
-#: ../src/calculator/class-shortcode.php:60 ../src/class-calculator.php:56
+#: ../src/calculator/class-shortcode.php:60 ../src/class-calculator.php:62
 msgid "Passenger"
 msgstr "נוסע"
 
@@ -227,10 +206,6 @@ msgstr "הצעות בזמן אמת:"
 msgid "Date of birth"
 msgstr "תאריך לידה?"
 
-#: ../src/calculator/class-shortcode.php:65
-msgid "Bottom legal note"
-msgstr "*הערה משפטית כאן"
-
 #: ../src/calculator/class-shortcode.php:66
 msgid "Arrival date"
 msgstr "תאריך יציאה?"
@@ -239,11 +214,11 @@ msgstr "תאריך יציאה?"
 msgid "Return date"
 msgstr "תאריך חזרה?"
 
-#: ../src/calculator/class-shortcode.php:68
+#: ../src/calculator/class-shortcode.php:68 ../src/class-calculator.php:45
 msgid "For purchase online"
 msgstr "לרכישה און ליין"
 
-#: ../src/calculator/class-shortcode.php:69
+#: ../src/calculator/class-shortcode.php:69 ../src/class-calculator.php:46
 msgid "For purchase through a representative"
 msgstr "לרכישה באמצעות נציג"
 
@@ -259,13 +234,11 @@ msgstr "לאן נוסעים?"
 
 #: ../src/calculator/class-shortcode.php:72
 msgid "3 step title"
-msgstr ""
-"ציינו כמות\n"
-"                                    <br> נוסעים"
+msgstr "סמנו תאריכי יציאה וחזרה"
 
 #: ../src/calculator/class-shortcode.php:73
 msgid "4 step title"
-msgstr "לאן נוסעים?"
+msgstr "סמנו הרחבות"
 
 #: ../src/calculator/class-shortcode.php:74
 msgid "1 step notice"
@@ -283,21 +256,32 @@ msgstr "*סמנו תאריכי מהארץ וחזרה לארץ"
 msgid "4 step notice"
 msgstr "*סמנו תוספות ופעילויות"
 
-#: ../src/calculator/class-shortcode.php:78 ../src/class-calculator.php:52
+#: ../src/calculator/class-shortcode.php:78 ../src/class-calculator.php:58
 msgid "1 step result title"
-msgstr "נוסע:"
+msgstr "נוסעים"
 
-#: ../src/calculator/class-shortcode.php:79 ../src/class-calculator.php:53
+#: ../src/calculator/class-shortcode.php:79 ../src/class-calculator.php:59
 msgid "2 step result title"
-msgstr "נוסע:"
+msgstr "יעד"
 
-#: ../src/calculator/class-shortcode.php:80 ../src/class-calculator.php:54
+#: ../src/calculator/class-shortcode.php:80 ../src/class-calculator.php:60
 msgid "3 step result title"
-msgstr "נוסע:"
+msgstr "תאריכים"
 
-#: ../src/calculator/class-shortcode.php:81 ../src/class-calculator.php:55
+#: ../src/calculator/class-shortcode.php:81 ../src/class-calculator.php:61
 msgid "4 step result title"
-msgstr "הרחבות:"
+msgstr "הרחבות"
+
+#: ../src/class-calculator.php:196
+msgid "Text blocks and messages"
+msgstr ""
+
+#: ../src/class-calculator.php:200
+msgid "Legal note text"
+msgstr ""
+
+#~ msgid "Bottom legal note"
+#~ msgstr "*הערה משפטית כאן"
 
 #~ msgid "Real-time bidding"
 #~ msgstr "הצעות בזמן אמת"

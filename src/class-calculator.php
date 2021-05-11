@@ -33,6 +33,8 @@ class Calculator {
 
 		add_action( 'wp_ajax_it_calculate', array( $this, 'it_calculate' ) );
 		add_action( 'wp_ajax_nopriv_it_calculate', array( $this, 'it_calculate' ) );
+
+		add_action( 'plugins_loaded', array( $this, 'create_options_page' ) );
 	}
 
 	public function it_calculate() {
@@ -49,7 +51,7 @@ class Calculator {
 			$post_data['option'] = $options;
 		}
 		if ( isset( $post_data['direction'] ) ) {
-			$options = Company::get_instance()->get_destinations( $post_data['direction'] );
+			$options = Company::get_instance()->get_countries( $post_data['direction'] );
 			$post_data['direction'] = $options;
 		}
 		$post_data['translations'] = array(
@@ -119,7 +121,7 @@ class Calculator {
 		);
 		wp_enqueue_style(
 			'jquery-ui',
-			'https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css',
+			'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/pepper-grinder/jquery-ui.css',
 			array(),
 			'1.12.1'
 		);
@@ -162,6 +164,74 @@ class Calculator {
 				'script_data',
 				array(
 					'admin_ajax_url' => admin_url( 'admin-ajax.php' ),
+				)
+			);
+		}
+	}
+
+	/**
+	 * Create options page
+	 *
+	 * @return void
+	 */
+	public function create_options_page() {
+		if ( function_exists('acf_add_options_page') ) {
+
+			acf_add_options_page(
+				array(
+					'page_title' => 'Insurance Travel Calculator Settings',
+					'menu_title' => 'Calculator Settings',
+					'menu_slug'  => 'calculator-settings',
+					'capability' => 'edit_posts',
+					'redirect'   => false,
+				)
+			);
+
+		}
+
+		if ( function_exists('acf_add_local_field_group') ) {
+			acf_add_local_field_group(
+				array(
+					'key'    => 'group_609ada0ea6efa',
+					'title'  => __( 'Text blocks and messages', 'insurance-travel-calculator' ),
+					'fields' => array(
+						array(
+							'key'               => 'field_609ada1a6d00f',
+							'label'             => __( 'Legal note text', 'insurance-travel-calculator' ),
+							'name'              => 'legal_note_text',
+							'type'              => 'textarea',
+							'instructions'      => '',
+							'required'          => 0,
+							'conditional_logic' => 0,
+							'wrapper'           => array(
+								'width' => '',
+								'class' => '',
+								'id'    => '',
+							),
+							'default_value'     => '',
+							'placeholder'       => '',
+							'maxlength'         => '',
+							'rows'              => '',
+							'new_lines'         => 'br',
+						),
+					),
+					'location' => array(
+						array(
+							array(
+								'param'    => 'options_page',
+								'operator' => '==',
+								'value'    => 'calculator-settings',
+							),
+						),
+					),
+					'menu_order'            => 0,
+					'position'              => 'normal',
+					'style'                 => 'default',
+					'label_placement'       => 'top',
+					'instruction_placement' => 'label',
+					'hide_on_screen'        => '',
+					'active'                => true,
+					'description'           => '',
 				)
 			);
 		}

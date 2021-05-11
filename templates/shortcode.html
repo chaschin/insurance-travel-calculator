@@ -16,13 +16,13 @@
 								<div class="it-calculator__passenger">
 									<label>{{ translations['Passenger'] }} <span class="it-calculator__passenger-number">1</span></label>
 									<span class="it-calculator__passenger-empty-button"></span>
-									<input type="text" name="passenger[]" class="it-calculator__passenger-input datepicker" value="" placeholder="{{ translations['Date of birth'] }}">
+									<input type="text" name="passenger[]" class="it-calculator__passenger-input admin-color-blue datepicker" value="" placeholder="{{ translations['Date of birth'] }}">
 								</div>
 								<div class="it-calculator__passenger">
 									<label>{{ translations['Passenger'] }} <span class="it-calculator__passenger-number">1</span></label>
 									<button class="it-calculator__passenger-button it-calculator__passenger-add"></button>
 									<button class="it-calculator__passenger-button it-calculator__passenger-delete"></button>
-									<input type="text" name="passenger[]" class="it-calculator__passenger-input datepicker" value="" placeholder="{{ translations['Date of birth'] }}">
+									<input type="text" name="passenger[]" class="it-calculator__passenger-input admin-color-blue datepicker" value="" placeholder="{{ translations['Date of birth'] }}">
 								</div>
 							</div>
 							<p class="note">{{ translations['1 step notice'] }}</p>
@@ -58,10 +58,10 @@
 						<div class="it-calculator__content-raw-data">
 							<div class="it-calculator__options-list">
 								<div class="it-calculator__options-list-item">
-									<input type="text" name="travel_date[arrival]" class="it-calculator__travel-date-input datepicker" value="" placeholder="{{ translations['Arrival date'] }}">
+									<input type="text" name="travel_date[arrival]" class="it-calculator__travel-date-input admin-color-blue datepicker" value="" placeholder="{{ translations['Arrival date'] }}">
 								</div>
 								<div class="it-calculator__options-list-item">
-									<input type="text" name="travel_date[return]" class="it-calculator__travel-date-input datepicker" value="" placeholder="{{ translations['Return date'] }}">
+									<input type="text" name="travel_date[return]" class="it-calculator__travel-date-input admin-color-blue datepicker" value="" placeholder="{{ translations['Return date'] }}">
 								</div>
 							</div>
 							<p class="note">{{ translations['3 step notice']|raw }}</p>
@@ -94,16 +94,18 @@
 				</form>
 			</div>
 			<div class="it-calculator__content-info">
-				<div class="it-calculator__results">
-					<h3 class="it-calculator__content-title">{{ translations['Results column title'] }}</h3>
-					<div class="it-calculator__results-inner">
-						{% include 'info/results.html' %}
+				<div class="it-calculator__content-info-inner">
+					<div class="it-calculator__results">
+						<h3 class="it-calculator__content-title">{{ translations['Results column title'] }}</h3>
+						<div class="it-calculator__results-inner">
+							{% include 'info/results.html' %}
+						</div>
 					</div>
-				</div>
-				<div class="it-calculator__companies">
-					<h3 class="it-calculator__content-title">{{ translations['Companies column title'] }}</h3>
-					<div class="it-calculator__companies-inner">
-						{% include 'info/companies.html' %}
+					<div class="it-calculator__companies">
+						<h3 class="it-calculator__content-title">{{ translations['Companies column title'] }}</h3>
+						<div class="it-calculator__companies-inner">
+							{% include 'info/companies.html' %}
+						</div>
 					</div>
 				</div>
 			</div>

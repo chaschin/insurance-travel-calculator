@@ -7,7 +7,7 @@
  * Plugin Name: Insurance Travel Calculator
  * Plugin URI: https://github.com/chaschin/calculator
  * Description: Insurance Travel Calculator
- * Version: 1.0.0.alpha.01
+ * Version: 1.0.6
  * Author: Alexey Chaschin
  * Author URI: https://github.com/chaschin
  * Text Domain: insurance-travel-calculator
@@ -21,7 +21,7 @@ if ( ! function_exists( 'add_action' ) ) {
 define( 'PLUGIN_CALCULATOR_DIR', plugin_dir_path( __FILE__ ) );
 define( 'PLUGIN_CALCULATOR_URL', plugin_dir_url( __FILE__ ) );
 
-define( 'PLUGIN_CALCULATOR_VER', '1.0.0' );
+define( 'PLUGIN_CALCULATOR_VER', '1.0.6' );
 
 require_once( PLUGIN_CALCULATOR_DIR . 'vendor/autoload.php' );
 require_once( PLUGIN_CALCULATOR_DIR . 'src/autoload.php' );

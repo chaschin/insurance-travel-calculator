@@ -2,8 +2,10 @@
 
 	$(function () {
 
-		var $cloned_passenger = null;
-
+		var $cloned_passenger = null,
+			$scroll_container = $('.it-calculator__content-info'), //get the offset top of the element
+			$scroll_block = $('.it-calculator__content-info-inner');
+			
 		var init = function() {
 			$('form[name="it-calculator"]')[0].reset();
 
@@ -46,6 +48,14 @@
 			$(document).on('change', 'form[name="it-calculator"] input', function() {
 				calc();
 			});
+
+			$(window).scroll(function (event) {
+				scroll_column();
+			});
+
+			$(window).on('resize', function(event) {
+				scroll_column();
+			});
 		};
 
 		var init_tooltip = function() {
@@ -60,13 +70,23 @@
 		};
 
 		var enable_datepicker = function() {
-			$('.datepicker:not(.hasDatepicker)').datepicker({
+			$('.it-calculator__passenger-input:not(.hasDatepicker)').datepicker({
+				showButtonPanel: true,
+				changeMonth: true,
+				changeYear: true
+			});
+			$('.it-calculator__travel-date-input:not(.hasDatepicker)').datepicker({
 				numberOfMonths: 2,
 				showButtonPanel: true,
-				dateFormat: 'dd.mm.yy'
 			});
-			$('.datepicker').datepicker('option',
+			$('.datepicker').datepicker(
+				'option',
 				$.datepicker.regional['he']
+			);
+			$('.datepicker').datepicker(
+				'option',
+				'dateFormat',
+				'dd.mm.yy'
 			);
 		};
 
@@ -80,9 +100,33 @@
 			});
 		};
 
-		init();
-		init_tooltip();
+		var scroll_column = function() {
+			var window_width = $(window).width(),
+				scroll = $(window).scrollTop(),
+				scroll_container_height = $scroll_container.height();
+				scroll_block_height = $scroll_block.height(),
+				e_top = $scroll_container.offset().top,
+				diff = scroll_container_height - scroll_block_height;
+				e_offset = scroll - e_top;
+			if ($('#page-header').length > 0) {
+				e_offset = e_offset + $('#page-header').height();
+			}
+			if (window_width > 1199) {
+				if (e_offset > 0 && diff > e_offset) {
+					$scroll_block.css('margin-top', e_offset + 'px');
+				} else if (e_offset <= 0 && diff > e_offset) {
+					$scroll_block.css('margin-top', '0');
+				}
+			} else {
+				$scroll_block.css('margin-top', '0');
+			}
+		};
 
+		if ($('form[name="it-calculator"]').length > 0) {
+			init();
+			init_tooltip();
+			scroll_column();
+		}
 	});
 
 })(jQuery);

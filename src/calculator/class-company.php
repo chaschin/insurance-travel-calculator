@@ -68,25 +68,25 @@ class Company {
 		register_post_type( 'company', $args );
 
 		$labels = array(
-			'name'                       => _x( 'Destinations', 'taxonomy general name' ),
-			'singular_name'              => _x( 'Destination', 'taxonomy singular name' ),
-			'search_items'               => __( 'Search Destinations' ),
-			'popular_items'              => __( 'Popular Destinations' ),
-			'all_items'                  => __( 'All Destinations' ),
+			'name'                       => _x( 'Countries', 'taxonomy general name' ),
+			'singular_name'              => _x( 'Country', 'taxonomy singular name' ),
+			'search_items'               => __( 'Search Countries' ),
+			'popular_items'              => __( 'Popular Countries' ),
+			'all_items'                  => __( 'All Countries' ),
 			'parent_item'                => null,
 			'parent_item_colon'          => null,
-			'edit_item'                  => __( 'Edit Destination' ),
-			'update_item'                => __( 'Update Destination' ),
-			'add_new_item'               => __( 'Add New Destination' ),
-			'new_item_name'              => __( 'New Destination Name' ),
-			'separate_items_with_commas' => __( 'Separate destinations with commas' ),
-			'add_or_remove_items'        => __( 'Add or remove destinations' ),
-			'choose_from_most_used'      => __( 'Choose from the most used destinations' ),
-			'menu_name'                  => __( 'Destinations' ),
+			'edit_item'                  => __( 'Edit Country' ),
+			'update_item'                => __( 'Update Country' ),
+			'add_new_item'               => __( 'Add New Country' ),
+			'new_item_name'              => __( 'New Country Name' ),
+			'separate_items_with_commas' => __( 'Separate countries with commas' ),
+			'add_or_remove_items'        => __( 'Add or remove countries' ),
+			'choose_from_most_used'      => __( 'Choose from the most used countries' ),
+			'menu_name'                  => __( 'Countries' ),
 		);
 
 		register_taxonomy(
-			'destination',
+			'country',
 			'company',
 			array(
 				'hierarchical' => false,
@@ -131,7 +131,7 @@ class Company {
 	 * @return array
 	 */
 	public function get_companies( $post_data = array() ): array {
-		$result = [];
+		$result = array();
 		$args = array(
 			'post_type' => 'company',
 		);
@@ -141,13 +141,13 @@ class Company {
 			$company_logo = get_field( 'company_logo', $company->ID );
 			$logo = '';
 			if ( $company_logo ) {
-				$logo = $company_logo['sizes']['thumbnail'];
+				$logo = $company_logo['sizes']['medium'];
 			}
 
-			$destinations = get_field( 'destinations', $company->ID );
-			$destinations = is_array( $destinations ) ? $destinations : array();
-			foreach ( $destinations as &$destination ) {
-				$destination['fee'] = floatval( $destination['fee'] );
+			$countries = get_field( 'countries', $company->ID );
+			$countries = is_array( $countries ) ? $countries : array();
+			foreach ( $countries as &$country ) {
+				$country['fee'] = floatval( $country['fee'] );
 			}
 			$options      = get_field( 'options', $company->ID );
 			$options     = is_array( $options ) ? $options : array();
@@ -159,11 +159,8 @@ class Company {
 				'id'           => $company->ID,
 				'name'         => $company->post_title,
 				'logo'         => $logo,
-				'adult_fee'    => floatval( get_field( 'adult_fee', $company->ID ) ),
-				'infant_fee'   => floatval( get_field( 'infant_fee', $company->ID ) ),
-				'child_fee'    => floatval( get_field( 'child_fee', $company->ID ) ),
-				'child_fee_2'  => floatval( get_field( 'child_fee_2', $company->ID ) ),
-				'destinations' => $destinations,
+				'basic_price'  => floatval( get_field( 'basic_price', $company->ID ) ),
+				'countries'    => $countries,
 				'options'      => $options,
 				'link_1'       => get_field( 'link_for_purchase_online', $company->ID ),
 				'link_2'       => get_field( 'link_for_purchase_through', $company->ID ),
@@ -172,7 +169,7 @@ class Company {
 			if ( $post_data ) {
 				$c['total_fee'] = $this->calculate_total_fee( $c, $post_data );
 			} else {
-				$c['total_fee'] = $c['adult_fee'];
+				$c['total_fee'] = $c['basic_price'];
 			}
 
 			$result[] = $c;
@@ -189,48 +186,46 @@ class Company {
 	 */
 	public function calculate_total_fee( array $company_data, array $post_data ): float {
 		$total_fee = 0;
-		foreach ( $post_data['passenger'] as $passenger_date ) {
-			if ( ! empty( $passenger_date ) ) {
-				$years = $this->get_full_years( $passenger_date );
-				if ( 3 >= $years && $company_data['infant_fee'] ) {
-					$total_fee += $company_data['infant_fee'];
-				} elseif ( 3 > $years && $years <= 7 && $company_data['child_fee'] ) {
-					$total_fee += $company_data['child_fee'];
-				} elseif ( 7 > $years && $years <= 14 && $company_data['child_fee_2'] ) {
-					$total_fee += $company_data['child_fee_2'];
-				} else {
-					$total_fee += $company_data['adult_fee'];
-				}
-			} else {
-				$total_fee += $company_data['adult_fee'];
-			}
+		$total_fee += $company_data['basic_price'];
+
+		if ( $post_data['travel_date']['arrival'] && $post_data['travel_date']['return'] ) {
+			$dates_diff = $this->get_diff_between_two_dates( $post_data['travel_date']['arrival'], $post_data['travel_date']['return'] );
+		} else {
+			$dates_diff = 0;
 		}
-		$post_data['direction'] = array_map(
-			function( $a ) {
-				return intval( $a );
-			},
-			$post_data['direction']
-		);
-		foreach ( $company_data['destinations'] as $option ) {
-			foreach ( $post_data['direction'] as $dir ) {
-				if ( in_array( $dir, $option['destination'] ) ) {
-					$total_fee += $option['fee'];
+
+		if ( $post_data['direction'] ) {
+			$post_data['direction'] = array_map(
+				function( $a ) {
+					return intval( $a );
+				},
+				$post_data['direction']
+			);
+			foreach ( $company_data['countries'] as $option ) {
+				foreach ( $post_data['direction'] as $dir ) {
+					if ( in_array( $dir, $option['country'] ) ) {
+						$total_fee += $dates_diff * $option['fee'];
+					}
 				}
 			}
 		}
-		$post_data['option'] = array_map(
-			function( $a ) {
-				return intval( $a );
-			},
-			$post_data['option']
-		);
-		foreach ( $company_data['options'] as $option ) {
-			foreach ( $post_data['option'] as $opt ) {
-				if ( in_array( $opt, $option['option'] ) ) {
-					$total_fee += $option['fee'];
+
+		if ( $post_data['option'] ) {
+			$post_data['option'] = array_map(
+				function( $a ) {
+					return intval( $a );
+				},
+				$post_data['option']
+			);
+			foreach ( $company_data['options'] as $option ) {
+				foreach ( $post_data['option'] as $opt ) {
+					if ( in_array( $opt, $option['option'] ) ) {
+						$total_fee += $dates_diff * $option['fee'];
+					}
 				}
 			}
 		}
+
 		return $total_fee;
 	}
 
@@ -244,6 +239,19 @@ class Company {
 		$diff = abs( time() - strtotime( $d ) );
 		$years = floor( $diff / ( 365 * 60 * 60 * 24 ) );
 		return $years;
+	}
+
+	/**
+	 * Get the difference between two dates
+	 *
+	 * @param string $date1 Date 1.
+	 * @param string $date2 Date 2.
+	 * @return integer
+	 */
+	private function get_diff_between_two_dates( string $date1, string $date2 ): int {
+		$diff = abs( strtotime( $date2 ) - strtotime( $date1 ) );
+		$diff = ceil( $diff / ( 60 * 60 * 24 ) );
+		return $diff;
 	}
 
 	/**
@@ -262,8 +270,8 @@ class Company {
 	 * @param array $ids Ids of terms.
 	 * @return array
 	 */
-	public function get_destinations( array $ids = array() ): array {
-		return $this->get_terms( 'destination', $ids );
+	public function get_countries( array $ids = array() ): array {
+		return $this->get_terms( 'country', $ids );
 	}
 
 	/**
@@ -324,9 +332,9 @@ class Company {
 						),
 						array(
 							'key' => 'field_608f2d16ac9fd',
-							'label' => __( 'Adult Fee', 'insurance-travel-calculator' ),
-							'name' => 'adult_fee',
-							'type' => 'text',
+							'label' => __( 'Basic Price', 'insurance-travel-calculator' ),
+							'name' => 'basic_price',
+							'type' => 'number',
 							'instructions' => '',
 							'required' => 1,
 							'conditional_logic' => 0,
@@ -335,73 +343,18 @@ class Company {
 								'class' => '',
 								'id' => '',
 							),
-							'default_value' => '',
+							'default_value' => 1,
 							'placeholder' => '',
 							'prepend' => '',
-							'append' => '',
-							'maxlength' => '',
-						),
-						array(
-							'key' => 'field_608f2e631432b',
-							'label' => __( 'Infant Fee', 'insurance-travel-calculator' ),
-							'name' => 'infant_fee',
-							'type' => 'text',
-							'instructions' => __( 'Up to three years old', 'insurance-travel-calculator' ),
-							'required' => 0,
-							'conditional_logic' => 0,
-							'wrapper' => array(
-								'width' => '',
-								'class' => '',
-								'id' => '',
-							),
-							'default_value' => '',
-							'placeholder' => '',
-							'prepend' => '',
-							'append' => '',
-							'maxlength' => '',
-						),
-						array(
-							'key' => 'field_608f2e9a1432d',
-							'label' => __( 'Child Fee', 'insurance-travel-calculator' ),
-							'name' => 'child_fee',
-							'type' => 'text',
-							'instructions' => __( 'Three to seven years old', 'insurance-travel-calculator' ),
-							'required' => 0,
-							'conditional_logic' => 0,
-							'wrapper' => array(
-								'width' => '',
-								'class' => '',
-								'id' => '',
-							),
-							'default_value' => '',
-							'placeholder' => '',
-							'prepend' => '',
-							'append' => '',
-							'maxlength' => '',
-						),
-						array(
-							'key' => 'field_608f2ed21432e',
-							'label' => __( 'Child Fee', 'insurance-travel-calculator' ),
-							'name' => 'child_fee_2',
-							'type' => 'text',
-							'instructions' => __( 'Seven to fourteen years old', 'insurance-travel-calculator' ),
-							'required' => 0,
-							'conditional_logic' => 0,
-							'wrapper' => array(
-								'width' => '',
-								'class' => '',
-								'id' => '',
-							),
-							'default_value' => '',
-							'placeholder' => '',
-							'prepend' => '',
-							'append' => '',
-							'maxlength' => '',
+							'append' => '$',
+							'min' => 0,
+							'max' => 50,
+							'step' => '',
 						),
 						array(
 							'key' => 'field_608f2f022b865',
-							'label' => __( 'Destinations', 'insurance-travel-calculator' ),
-							'name' => 'destinations',
+							'label' => __( 'Countries', 'insurance-travel-calculator' ),
+							'name' => 'countries',
 							'type' => 'repeater',
 							'instructions' => '',
 							'required' => 0,
@@ -415,12 +368,12 @@ class Company {
 							'min' => 0,
 							'max' => 0,
 							'layout' => 'table',
-							'button_label' => __( 'Add Destination Fee', 'insurance-travel-calculator' ),
+							'button_label' => __( 'Add Country\'s Fee', 'insurance-travel-calculator' ),
 							'sub_fields' => array(
 								array(
 									'key' => 'field_608f2f852b866',
-									'label' => __( 'Destination', 'insurance-travel-calculator' ),
-									'name' => 'destination',
+									'label' => __( 'Country', 'insurance-travel-calculator' ),
+									'name' => 'country',
 									'type' => 'taxonomy',
 									'instructions' => '',
 									'required' => 1,
@@ -430,7 +383,7 @@ class Company {
 										'class' => '',
 										'id' => '',
 									),
-									'taxonomy' => 'destination',
+									'taxonomy' => 'country',
 									'field_type' => 'multi_select',
 									'allow_null' => 0,
 									'add_term' => 1,
@@ -443,7 +396,7 @@ class Company {
 									'key' => 'field_608f30282b867',
 									'label' => __( 'Fee', 'insurance-travel-calculator' ),
 									'name' => 'fee',
-									'type' => 'text',
+									'type' => 'number',
 									'instructions' => '',
 									'required' => 1,
 									'conditional_logic' => 0,
@@ -452,11 +405,13 @@ class Company {
 										'class' => '',
 										'id' => '',
 									),
-									'default_value' => '',
+									'default_value' => 1,
 									'placeholder' => '',
 									'prepend' => '',
-									'append' => '',
-									'maxlength' => '',
+									'append' => '$',
+									'min' => 0,
+									'max' => 50,
+									'step' => '',
 								),
 							),
 						),
@@ -505,7 +460,7 @@ class Company {
 									'key' => 'field_608f306de5dc9',
 									'label' => __( 'Fee', 'insurance-travel-calculator' ),
 									'name' => 'fee',
-									'type' => 'text',
+									'type' => 'number',
 									'instructions' => '',
 									'required' => 1,
 									'conditional_logic' => 0,
@@ -514,11 +469,13 @@ class Company {
 										'class' => '',
 										'id' => '',
 									),
-									'default_value' => '',
+									'default_value' => 1,
 									'placeholder' => '',
 									'prepend' => '',
-									'append' => '',
-									'maxlength' => '',
+									'append' => '$',
+									'min' => 0,
+									'max' => 50,
+									'step' => '',
 								),
 							),
 						),
